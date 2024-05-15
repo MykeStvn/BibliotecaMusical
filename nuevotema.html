@@ -144,7 +144,7 @@
   const temaform = document.getElementById("form-tema");
   //llamar a la funcion addEventListener para realizar acciones cuando se aplaste el boton submit
   // creacion evento asyc asincrono
-  productform.addEventListener("submit", async(e)=>{
+  temaform.addEventListener("submit", async(e)=>{
         e.preventDefault();
         await addDoc(collection(db,"mibibliotecamusical"),{
             titulo: temaform.nombretema.value,
@@ -158,7 +158,7 @@
             calificacion: temaform.calificacion.value,
             link: temaform.link.value            
         });
-        productform.reset();
+        temaform.reset();
     }
 );
 </script>
