@@ -144,6 +144,7 @@
   const temaform = document.getElementById("form-tema");
   //llamar a la funcion addEventListener para realizar acciones cuando se aplaste el boton submit
   // creacion evento asyc asincrono
+  //ojo usar el nombre de la constante que pusimos
   temaform.addEventListener("submit", async(e)=>{
         e.preventDefault();
         await addDoc(collection(db,"mibibliotecamusical"),{
