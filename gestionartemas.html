@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--IMPORTACIÓN DE BOOTSTRAP-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>GESTIONAR TEMAS</title>
+</head>
+<style>
+    .navbar {
+        background-color: cornflowerblue;
+        color: antiquewhite;
+    }
+    .navbar-nav .nav-link{
+        color: white;
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html"><img src="https://png.pngtree.com/png-clipart/20221027/ourmid/pngtree-music-logo-png-image_6389182.png" width="50px" alt=""></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+              </li>              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gestionar Biblioteca
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="nuevotema.html">Agregar Tema</a></li>
+                  <li><a class="dropdown-item" href="gestionartemas.html">Gestionar Temas Agregados</a></li>
+                  <li><a class="dropdown-item" href="#"></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="banner">
+        <h1>GESTIÓN DE TEMAS</h1>
+      </div>
+    
+    <div class="container" style="max-width: 100%;">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Título</th>
+                    <th>Artista</th>
+                    <th>Año</th>
+                    <th>Duración</th>
+                    <th>Tonalidad</th>
+                    <th>Álbum</th>
+                    <th>Género</th>
+                    <th>Origen</th>
+                    <th>Calificación</th>
+                    <th>Link</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-temas"></tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBlTQaP3P4gq9w9xpbC-kg-h7oQdP-ny84",
+      authDomain: "coleccion-musical.firebaseapp.com",
+      projectId: "coleccion-musical",
+      storageBucket: "coleccion-musical.appspot.com",
+      messagingSenderId: "8453827642",
+      appId: "1:8453827642:web:20e7929cc77cbc68cad903"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Function to render documents in table rows
+    const renderTema = (doc) => {
+      const listaTemas = document.getElementById("lista-temas");
+      const tr = document.createElement("tr");
+      tr.setAttribute("data-id", doc.id);
+
+      
+
+      tr.innerHTML = `
+        <td>${doc.data().titulo}</td>
+        <td>${doc.data().artista}</td>
+        <td>${doc.data().año}</td>
+        <td>${doc.data().duracion}</td>
+        <td>${doc.data().tonalidad}</td>
+        <td>${doc.data().album}</td>
+        <td>${doc.data().genero}</td>
+        <td>${doc.data().origen}</td>
+        <td>${doc.data().calificacion}</td>
+        <td ><a href="${doc.data().link}" target="_blank" style="font-size: 10px;">${doc.data().link}</a></td>
+        <td><button class="btn btn-danger btn-sm btn-delete">Eliminar</button></td>
+      `;
+
+      // Add delete functionality
+      tr.querySelector(".btn-delete").addEventListener("click", async () => {
+        await deleteDoc(doc(db, "mibibliotecamusical", doc.id));
+      });
+
+      listaTemas.appendChild(tr);
+    };
+
+    // Real-time listener
+    onSnapshot(collection(db, "mibibliotecamusical"), (snapshot) => {
+      const listaTemas = document.getElementById("lista-temas");
+      listaTemas.innerHTML = ""; // Clear the current list
+      snapshot.forEach(doc => {
+        renderTema(doc);
+      });
+    });
+
+    
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>
