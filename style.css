@@ -1,0 +1,15 @@
+.banner {
+    width: 100%;
+    background-color: #28A745;
+    color: white;
+    text-align: center;
+}
+
+.tarjeta {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgb(151, 206, 255);
+    height: 350px;
+}
