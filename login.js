@@ -34,6 +34,7 @@ function initialize() {
           const user = result.user;
           alert("Usuario Logueado con Google");
           console.log(user);
+          console.log('Redirigiendo a menu.html');
           // Redirigir a la página de inicio
           window.location.href = "menu.html";
         })
