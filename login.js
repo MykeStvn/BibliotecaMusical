@@ -36,7 +36,9 @@ function initialize() {
           console.log(user);
           console.log('Redirigiendo a menu.html');
           // Redirigir a la página de inicio
-          window.location.href = "menu.html";
+          // Redirigir a menu.html usando una ruta absoluta
+          window.location.href = "/BibliotecaMusical/menu.html";
+
         })
         .catch(error => {
           // Manejo de errores
