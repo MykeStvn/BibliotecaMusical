@@ -35,7 +35,7 @@ function initialize() {
           alert("Usuario Logueado con Google");
           console.log(user);
           // Redirigir a la página de inicio
-          window.location.href = "index.html";
+          window.location.href = "menu.html";
         })
         .catch(error => {
           // Manejo de errores
